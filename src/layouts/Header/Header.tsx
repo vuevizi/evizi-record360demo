@@ -15,8 +15,8 @@ const Header: React.FC<HeaderProps> = ({title}) => {
             content: "Do you want to log out ?",
             onOk: () => {
                 localStorage.removeItem("access-token");
-                navigate(RoutesPath.LOGIN);
                 dispatch(logout())
+                navigate(RoutesPath.LOGIN);
             }
         })
 

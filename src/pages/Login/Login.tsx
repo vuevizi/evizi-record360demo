@@ -74,7 +74,7 @@ const Login: React.FC = () => {
         })
     };
     useEffect(()=>{
-        if(!user){
+        if(user !== null){
             Modal.error({
                 content: 'You are login...Go Back !!!',
                 onOk:()=>{
