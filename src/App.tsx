@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {useQueryCompanies} from "./customhooks/useQueryCompanies";
 import {Navigate, Route, Routes} from "react-router-dom";
@@ -7,8 +7,10 @@ import {AdminLayout, AuthLayout} from "./layouts";
 import {DashBoard, Login} from "./pages";
 
 function App() {
-    const {data,loading,error} = useQueryCompanies({id:"2"});
-    console.log(data,loading,error);
+    useEffect(()=>{
+       localStorage.setItem("cursor",JSON.stringify([]))
+    },[])
+
     return (
         <div className="App">
             <Routes>
