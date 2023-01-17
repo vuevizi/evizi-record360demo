@@ -18,8 +18,6 @@ const DashBoard: React.FC = () => {
         handleChangeDirection
 
     } = useQueryCompanies();
-
-    console.log(data?.companies.edges)
     return (
         <div className='dashboard__container'>
             <div className='dashboard__filter'>
@@ -33,7 +31,7 @@ const DashBoard: React.FC = () => {
                     <Button
                         onClick={() => handlePreviousPage(data?.companies.edges[0].cursor)}>Previous
                         Page</Button>
-                        <Input placeholder="Search Place..." onChange={(e)=>handleFilterByInput(e)}></Input>
+                        <DebounceInput style={{padding: "7px 10px",border: "1px solid grey",borderRadius: '10px'}} debounceTimeout={500} placeholder="Search Place..." onChange={(e)=>handleFilterByInput(e)}></DebounceInput>
                         <Select
                             onChange={handleChangeDirection}
                             defaultValue="ASC"

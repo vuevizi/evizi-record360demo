@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Form, Input,Modal} from 'antd';
 import "./style.css"
 import {useMutation, gql} from "@apollo/client";
 import {LoginParams} from "../../interfaces/interfaces";
-import {useNavigate} from "react-router-dom";
+import {Route, useNavigate} from 'react-router-dom';
 import {RoutesPath} from "../../constants/RoutesPath";
-import {useAppDispatch} from "../../redux/hooks";
-import {loginSuccess} from "../../features/login/login.slice";
+import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {getLoginState, loginSuccess} from '../../features/login/login.slice';
 import {useForm} from "antd/lib/form/Form";
 
 
@@ -30,6 +30,7 @@ const LOGIN_MUTATION = gql`
 const Login: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const {user} = useAppSelector(getLoginState)
     const formRef = React.useRef(null);
     const [login, {data, error, loading}] = useMutation(LOGIN_MUTATION)
 
@@ -64,8 +65,25 @@ const Login: React.FC = () => {
     };
 
     const onFinishFormFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+        Modal.error({
+            content: 'Login Fail...Try again',
+            onOk:()=>{
+                // @ts-ignore
+                formRef.current.resetFields();
+            }
+        })
     };
+    useEffect(()=>{
+        if(!user){
+            Modal.error({
+                content: 'You are login...Go Back !!!',
+                onOk:()=>{
+                    navigate(RoutesPath.DASHBOARD)
+                }
+            })
+
+        }
+    },[])
     return (
         <div className="login__container">
             <div className="login__form">
