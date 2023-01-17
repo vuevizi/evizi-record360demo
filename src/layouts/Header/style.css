@@ -1,0 +1,20 @@
+header {
+    width: 100vw;
+    background: darkslategray;
+}
+
+.btn__logout {
+    margin-left: auto;
+}
+.header__title span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+nav {
+    padding: 10px 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
